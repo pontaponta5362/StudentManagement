@@ -19,23 +19,10 @@ public class StudentService {
   }
 
   public List<Student> searchStudentList() {
-    List<Student> studentList = repository.search();
-    List<Student> resultList = new ArrayList<>();
-    for (Student student : studentList) {
-      if (student.getAge() >= 30 && student.getAge() < 40){
-        resultList.add(student);
-    }
-    }
-    return resultList;
+    return repository.search();
   }
 
   public List<StudentCourse> searchStudentCourseList() {
-   List<StudentCourse> studentCourseList = repository.searchCourses();
-   List<StudentCourse> resultCourseList = new ArrayList<>();
-   for (StudentCourse studentCourse : studentCourseList) {
-     if (studentCourse.getCourseName().equals("Javaプログラミングコース")){
-       resultCourseList.add(studentCourse);
-     }
-   }
-    return resultCourseList;
+
+    return repository.searchCourses();
   }}
