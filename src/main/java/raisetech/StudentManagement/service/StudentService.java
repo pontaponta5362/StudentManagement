@@ -1,5 +1,7 @@
 package raisetech.StudentManagement.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,10 +34,28 @@ public class StudentService {
 
   @Transactional
   public void registerStudent(StudentDetail studentDetail) {
-    String newId = UUID.randomUUID().toString();
-    studentDetail.getStudent().setId(newId);
     repository.registerStudent(studentDetail.getStudent());
-    studentDetail.getStudentCourse().get(0).setStudentId(newId);
-    repository.registerStudentCourse(studentDetail.getStudentCourse().get(0));
+    StudentCourse course = studentDetail.getStudentCourse().get(0);
+    course.setStudentId(studentDetail.getStudent().getId());
+    LocalDateTime now = LocalDateTime.now();
+    course.setStartDate(now);
+    course.setExpectedEndDate(now.plusYears(1));
+    repository.registerStudentCourse(course);
+  }
+
+  public StudentDetail searchStudent(int id) {
+    Student student = repository.searchStudent(id);
+    List<StudentCourse> studentCourse = repository.searchStudentCourseList(id);
+   StudentDetail studentDetail = new StudentDetail();
+   studentDetail.setStudent(student);
+   studentDetail.setStudentCourse(studentCourse);
+    return studentDetail;
+  }
+  @Transactional
+  public void updateStudent(StudentDetail studentDetail){
+    repository.updateStudent(studentDetail.getStudent());
+    StudentCourse course = studentDetail.getStudentCourse().get(0);
+    course.setStudentId(studentDetail.getStudent().getId());
+    repository.updateStudentCourse(course);
   }
 }
