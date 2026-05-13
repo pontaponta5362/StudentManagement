@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>受講生更新</title>
 </head>
@@ -59,9 +59,14 @@
     <label for="remark">備考:</label>
     <textarea id="remark" th:field="*{student.remark}"></textarea>
   </div>
-
+  </div>
+  <label>キャンセル:</label>
+  <label>
+    <input type="checkbox" th:field="*{student.isDeleted}" /> キャンセルする
+  </label>
+  </div>
   <div>
-    <button type="submit">登録</button>
+    <button type="submit">更新</button>
   </div>
 </form>
 </body>
