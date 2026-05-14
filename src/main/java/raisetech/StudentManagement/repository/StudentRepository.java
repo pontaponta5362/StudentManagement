@@ -14,7 +14,7 @@ import raisetech.StudentManagement.data.StudentCourse;
 
 public interface StudentRepository {
 
-  @Select("SELECT * FROM students")
+  @Select("SELECT * FROM students WHERE isDeleted = 0")
   List<Student> search();
 
   @Select("SELECT * FROM students_courses")
@@ -33,7 +33,7 @@ public interface StudentRepository {
   @Select("SELECT  * FROM students_courses WHERE student_id = #{studentId}")
   List<StudentCourse> searchStudentCourseList(int studentId);
 
-  @Update("UPDATE students SET name = #{name}, kana = #{kana}, nickname = #{nickname}, email = #{email}, region = #{region}, age = #{age}, gender = #{gender}, remark = #{remark} WHERE id = #{id}")
+  @Update("UPDATE students SET name = #{name}, kana = #{kana}, nickname = #{nickname}, email = #{email}, region = #{region}, age = #{age}, gender = #{gender}, remark = #{remark}, isDeleted = #{isDeleted} WHERE id = #{id}")
   void updateStudent(Student student);
 
   @Update("UPDATE students_courses SET course_name = #{courseName} WHERE student_id = #{studentId}")
